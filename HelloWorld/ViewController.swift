@@ -18,21 +18,83 @@ class ViewController: UIViewController {
     var playerA: AKAudioPlayer!
     var playerB: AKAudioPlayer!
     var playerReference: AKAudioPlayer!
-    var totalQuestions = 10;
-    var currentQuestion = 1;
+    var audioFolderURL: URL!
+    var folderList: NSArray!
+    var totalQuestions = 0
+    var currentQuestion = 1
+    var correctAnswers = [Int]()
+    var userAnswers = [Int]()
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
 
     @IBOutlet weak var questionNumberLabel: UILabel!
     
+    @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var nextButton: UIButton!
     
     // hide status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
+    
+    func randomiseCorrectAnswers() {
+        correctAnswers.removeAll()
+        for i in 1...totalQuestions {
+            correctAnswers.append(Int(arc4random_uniform(1)))
+        }
+    }
+    
+    
+    func updateQuestion(){
+        // update the label text at the top of the screen
+        updateQuestionLabel()
+        
+        AudioKit.stop()
+//        if mixer.isStarted {
+  //          mixer.disconnect()
+        //    playerReference.disconnect()
+        //    playerA.disconnect()
+        //    playerB.disconnect()
+        //}
+        
+        let questionFolderURL = URL(fileURLWithPath: folderList.object(at: currentQuestion-1) as! String, relativeTo: audioFolderURL)
+        let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
+        let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
+        let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
+        
+        do {
+            // load the reference audio file
+            let referenceAudioFile = try AKAudioFile(forReading: referenceAudioURL)
+            playerReference = try AKAudioPlayer(file: referenceAudioFile)
+            
+            let audioFileA: AKAudioFile!
+            let audioFileB: AKAudioFile!
+            
+            // switch the order of samples A and B according to the random
+            // selection determined at the start of the test
+            if (correctAnswers[currentQuestion-1] == 0) {
+                audioFileA = try AKAudioFile(forReading: whiteAudioURL)
+                audioFileB = try AKAudioFile(forReading: filteredAudioURL)
+            } else {
+                audioFileB = try AKAudioFile(forReading: whiteAudioURL)
+                audioFileA = try AKAudioFile(forReading: filteredAudioURL)
+            }
+            
+            // load the A and B audio files
+            playerA = try AKAudioPlayer(file: audioFileA)
+            playerB = try AKAudioPlayer(file: audioFileB)
+            
+        } catch let error {
+            print("Error: \(error.localizedDescription)")
+        }
+        
+        mixer = AKMixer(playerA, playerB, playerReference)
+        AudioKit.output = mixer
+        AudioKit.start()
+    }
     
     
     override func viewDidLoad() {
@@ -42,48 +104,29 @@ class ViewController: UIViewController {
     
         
         
+        
+        // get the list of subfolders in the audio folder
+        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
+        
         do {
-            FileManager.default.changeCurrentDirectoryPath(Bundle.main.bundlePath)
-            //print(FileManager.default.currentDirectoryPath)
-            
-            let audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
-            /*
-            let audioFileURL = URL(fileURLWithPath: "test.wav", relativeTo: audioFilesFolderURL)
-            
-            let audioFile = try AKAudioFile(forReading: audioFileURL)
-            
-            playerA = try AKAudioPlayer(file: audioFile);
-            playerB = try AKAudioPlayer(file: audioFile);
-            playerReference = try AKAudioPlayer(file: audioFile);
-            playerA.looping = true
-            playerB.looping = true
-            playerReference.looping = true
-            */
-            
-            let folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path)
-            
-            for folderName in folderList {
-                print(folderName)
-            }
+            folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as NSArray
         } catch let error {
-            print("Error: \(error.localizedDescription)")
+            print("Error loading audio files: \(error.localizedDescription)")
         }
-//        do {
-//            let fileURL =
-//            file = try AKAudioFile(forReading: fileURL);
-//            player = try AKAudioPlayer(file: file)
-//        } catch {
-//            AKLog("File Not Found")
-//            return
-//        }
-       
-
+        
+        
+        // each folder is one question; update the question label
+        // to show the correct number of questions
+        totalQuestions = folderList.count
+        updateQuestionLabel()
+        
+        // randomly generate correct answers
+        randomiseCorrectAnswers()
+        
+        // start the test
+        updateQuestion()
         
         super.viewDidLoad()
-
-        mixer = AKMixer(playerA, playerB, playerReference)
-        AudioKit.output = mixer
-        AudioKit.start()
     }
     
     
@@ -134,16 +177,26 @@ class ViewController: UIViewController {
     
     func updateQuestionLabel(){
         questionNumberLabel.text = String(currentQuestion) + " / " + String(totalQuestions)
+        
+        // disbale back at the beginning
+        backButton.isEnabled = (currentQuestion != 1)
+        
+        // disable next at the end
+        nextButton.isEnabled = (currentQuestion != totalQuestions)
     }
     
     @IBAction func nextButtonTouched(_ sender: Any) {
         if(currentQuestion < totalQuestions) {
             currentQuestion += 1
         }
-        updateQuestionLabel()
+        updateQuestion()
     }
 
     @IBAction func backButtonTouched(_ sender: Any) {
+        if(currentQuestion > 1) {
+            currentQuestion -= 1
+        }
+        updateQuestion()
     }
     
     

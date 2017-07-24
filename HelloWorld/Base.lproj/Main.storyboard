@@ -31,7 +31,7 @@
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="backButtonTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="2oE-Dc-zWL"/>
+                                            <action selector="backButtonTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="axQ-7f-z87"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJG-r6-HxB">
@@ -219,6 +219,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="xPu-2q-RCn" id="pzx-4o-1Gd"/>
+                        <outlet property="nextButton" destination="hJG-r6-HxB" id="Plv-Fk-cHb"/>
                         <outlet property="questionNumberLabel" destination="mKK-3F-mkP" id="fGl-dr-OJd"/>
                         <outlet property="segmentedControl" destination="pxl-lH-foM" id="oKt-EB-YEN"/>
                     </connections>
