@@ -46,8 +46,8 @@ class ViewController: UIViewController {
             FileManager.default.changeCurrentDirectoryPath(Bundle.main.bundlePath)
             //print(FileManager.default.currentDirectoryPath)
             
-            let audioFilesFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
-            
+            let audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
+            /*
             let audioFileURL = URL(fileURLWithPath: "test.wav", relativeTo: audioFilesFolderURL)
             
             let audioFile = try AKAudioFile(forReading: audioFileURL)
@@ -58,14 +58,13 @@ class ViewController: UIViewController {
             playerA.looping = true
             playerB.looping = true
             playerReference.looping = true
+            */
             
-            //let fileList = try FileManager.default.contentsOfDirectory(atPath: FileManager.default.currentDirectoryPath)
+            let folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path)
             
-            //let fileList = try FileManager.default.contentsOfDirectory(atPath: audioFilesURL.path)
-            
-            //for filename in fileList {
-            //    print(filename)
-            //}
+            for folderName in folderList {
+                print(folderName)
+            }
         } catch let error {
             print("Error: \(error.localizedDescription)")
         }
