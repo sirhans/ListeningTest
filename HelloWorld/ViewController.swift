@@ -53,12 +53,6 @@ class ViewController: UIViewController {
         updateQuestionLabel()
         
         AudioKit.stop()
-//        if mixer.isStarted {
-  //          mixer.disconnect()
-        //    playerReference.disconnect()
-        //    playerA.disconnect()
-        //    playerB.disconnect()
-        //}
         
         let questionFolderURL = URL(fileURLWithPath: folderList.object(at: currentQuestion-1) as! String, relativeTo: audioFolderURL)
         let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
@@ -101,6 +95,10 @@ class ViewController: UIViewController {
         
         let font = UIFont.systemFont(ofSize: 20)
     segmentedControl.setTitleTextAttributes([NSFontAttributeName: font],for: .normal)
+        
+        // set the colour for buttons in disabled state
+        backButton.setTitleColor(UIColor.darkGray, for: .disabled)
+        nextButton.setTitleColor(UIColor.darkGray, for: .disabled)
     
         
         
