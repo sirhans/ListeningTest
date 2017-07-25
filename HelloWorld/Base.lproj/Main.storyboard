@@ -147,6 +147,7 @@
                                         </state>
                                         <connections>
                                             <action selector="hideAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ADx-f0-4SZ"/>
+                                            <action selector="hideAnswer:" destination="BYZ-38-t0r" eventType="touchDragExit" id="AvP-dl-9zv"/>
                                             <action selector="showAnswer:" destination="BYZ-38-t0r" eventType="touchDown" id="bw3-ss-0m1"/>
                                         </connections>
                                     </button>
@@ -179,7 +180,7 @@
                                                     <segment title="A"/>
                                                     <segment title="B"/>
                                                 </segments>
-                                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
