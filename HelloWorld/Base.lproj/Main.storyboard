@@ -138,7 +138,24 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zca-hJ-UvZ">
                                 <rect key="frame" x="20" y="510.66666666666674" width="374" height="225.33333333333326"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pao-1y-4Bi">
+                                        <rect key="frame" x="94" y="94.999999999999943" width="187" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="show correct answer">
+                                            <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="hideAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ADx-f0-4SZ"/>
+                                            <action selector="showAnswer:" destination="BYZ-38-t0r" eventType="touchDown" id="bw3-ss-0m1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="pao-1y-4Bi" firstAttribute="centerY" secondItem="zca-hJ-UvZ" secondAttribute="centerY" id="L7X-YL-SSA"/>
+                                    <constraint firstItem="pao-1y-4Bi" firstAttribute="centerX" secondItem="zca-hJ-UvZ" secondAttribute="centerX" id="OFT-vc-Gso"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z1a-AJ-UJc">
                                 <rect key="frame" x="20" y="60" width="374" height="225.33333333333331"/>
@@ -219,6 +236,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="AButton" destination="svp-g7-Off" id="sg4-Lq-Xus"/>
+                        <outlet property="BButton" destination="JHL-Og-rNv" id="1Fv-at-UZd"/>
                         <outlet property="backButton" destination="xPu-2q-RCn" id="pzx-4o-1Gd"/>
                         <outlet property="nextButton" destination="hJG-r6-HxB" id="Plv-Fk-cHb"/>
                         <outlet property="questionNumberLabel" destination="mKK-3F-mkP" id="fGl-dr-OJd"/>
@@ -227,7 +246,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="304.6875" y="428.69692532942895"/>
+            <point key="canvasLocation" x="304.34782608695656" y="427.98913043478262"/>
         </scene>
     </scenes>
 </document>

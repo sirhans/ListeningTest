@@ -24,6 +24,8 @@ class ViewController: UIViewController {
     var currentQuestion = 1
     var correctAnswers = [Int]()
     var userAnswers = [Int]()
+    var orangeColour = UIColor(hue: 38.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
+    var blueColour = UIColor(hue: 196.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -34,16 +36,20 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var nextButton: UIButton!
     
+    @IBOutlet weak var BButton: UIButton!
+    
+    @IBOutlet weak var AButton: UIButton!
+    
+    
     // hide status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    
     func randomiseCorrectAnswers() {
         correctAnswers.removeAll()
         for i in 1...totalQuestions {
-            correctAnswers.append(Int(arc4random_uniform(1)))
+            correctAnswers.append(Int(arc4random_uniform(2)))
         }
     }
     
@@ -196,6 +202,23 @@ class ViewController: UIViewController {
         }
         updateQuestion()
     }
+    
+    
+    @IBAction func showAnswer(_ sender: Any) {
+        if correctAnswers[currentQuestion-1] == 0 {
+            AButton.backgroundColor = orangeColour
+        } else {
+            BButton.backgroundColor = orangeColour
+        }
+    }
+    
+    
+    @IBAction func hideAnswer(_ sender: Any) {
+        AButton.backgroundColor = blueColour
+        BButton.backgroundColor = blueColour
+    }
+    
+    
     
     
 }
