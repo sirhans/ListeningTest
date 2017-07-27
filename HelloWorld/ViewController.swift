@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var AButton: UIButton!
     
+    @IBOutlet weak var questionDataLabel: UILabel!
     
     // hide status bar
     override var prefersStatusBarHidden: Bool {
@@ -64,6 +65,8 @@ class ViewController: UIViewController {
         let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
         let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
         let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
+        
+        questionDataLabel.text = questionFolderURL.relativeString
         
         do {
             // load the reference audio file
@@ -106,7 +109,8 @@ class ViewController: UIViewController {
         backButton.setTitleColor(UIColor.darkGray, for: .disabled)
         nextButton.setTitleColor(UIColor.darkGray, for: .disabled)
     
-        
+        // hide the question data label
+        questionDataLabel.alpha = 0.0;
         
         
         // get the list of subfolders in the audio folder
@@ -210,12 +214,15 @@ class ViewController: UIViewController {
         } else {
             BButton.backgroundColor = orangeColour
         }
+        
+        questionDataLabel.alpha = 1.0
     }
     
     
     @IBAction func hideAnswer(_ sender: Any) {
         AButton.backgroundColor = blueColour
         BButton.backgroundColor = blueColour
+        questionDataLabel.alpha = 0.0
     }
     
     
