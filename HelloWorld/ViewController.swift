@@ -118,6 +118,7 @@ class ViewController: UIViewController {
         
         do {
             folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as NSArray
+            print(folderList);
         } catch let error {
             print("Error loading audio files: \(error.localizedDescription)")
         }
