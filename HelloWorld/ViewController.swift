@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var playerB: AKAudioPlayer!
     var playerReference: AKAudioPlayer!
     var audioFolderURL: URL!
-    var folderList: NSArray!
+    var folderList: [String]!
     var totalQuestions = 0
     var currentQuestion = 1
     var correctAnswers = [Int]()
@@ -47,6 +47,10 @@ class ViewController: UIViewController {
         return true
     }
     
+    func sortFunc(num1: String, num2: String) -> Bool {
+        return num1 < num2
+    }
+    
     func randomiseCorrectAnswers() {
         correctAnswers.removeAll()
         for i in 1...totalQuestions {
@@ -61,7 +65,7 @@ class ViewController: UIViewController {
         
         AudioKit.stop()
         
-        let questionFolderURL = URL(fileURLWithPath: folderList.object(at: currentQuestion-1) as! String, relativeTo: audioFolderURL)
+        let questionFolderURL = URL(fileURLWithPath: folderList[currentQuestion-1] as! String, relativeTo: audioFolderURL)
         let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
         let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
         let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
@@ -117,8 +121,9 @@ class ViewController: UIViewController {
         audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
         
         do {
-            folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as NSArray
-            print(folderList);
+            folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as [String]
+            folderList = folderList.sorted { $0.localizedStandardCompare($1) == ComparisonResult.orderedAscending }
+            print (folderList);
         } catch let error {
             print("Error loading audio files: \(error.localizedDescription)")
         }
