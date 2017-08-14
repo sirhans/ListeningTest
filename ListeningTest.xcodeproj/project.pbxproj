@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C3A3ABD1F419BFA00295ADC /* audio_w in Resources */ = {isa = PBXBuildFile; fileRef = 2C3A3ABC1F419BFA00295ADC /* audio_w */; };
 		3A2CD8E01F2585E000F40B42 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 3A2CD8DF1F2585E000F40B42 /* audio */; };
 		3A2CD8E31F2587A000F40B42 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2CD8E11F25873200F40B42 /* AudioKit.framework */; };
 		3A2CD8E41F2587A000F40B42 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2CD8E11F25873200F40B42 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C3A3ABC1F419BFA00295ADC /* audio_w */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio_w; sourceTree = "<group>"; };
 		3A2CD8DF1F2585E000F40B42 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		3A2CD8E11F25873200F40B42 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = ../AudioKit.framework; sourceTree = "<group>"; };
 		C41702801C11954900AB689C /* ListeningTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListeningTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +77,7 @@
 		C41702821C11954900AB689C /* ListeningTest */ = {
 			isa = PBXGroup;
 			children = (
+				2C3A3ABC1F419BFA00295ADC /* audio_w */,
 				3A2CD8DF1F2585E000F40B42 /* audio */,
 				C41702831C11954900AB689C /* AppDelegate.swift */,
 				C41702851C11954900AB689C /* ViewController.swift */,
@@ -157,6 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C3A3ABD1F419BFA00295ADC /* audio_w in Resources */,
 				C417028E1C11954900AB689C /* LaunchScreen.storyboard in Resources */,
 				C417028B1C11954900AB689C /* Assets.xcassets in Resources */,
 				C41702891C11954900AB689C /* Main.storyboard in Resources */,
