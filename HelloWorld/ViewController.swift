@@ -28,18 +28,12 @@ class ViewController: UIViewController {
     var blueColour = UIColor(hue: 196.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-
+    @IBOutlet weak var resultsView: UITextView!
     @IBOutlet weak var questionNumberLabel: UILabel!
-    
     @IBOutlet weak var backButton: UIButton!
-    
     @IBOutlet weak var nextButton: UIButton!
-    
     @IBOutlet weak var BButton: UIButton!
-    
     @IBOutlet weak var AButton: UIButton!
-    
     @IBOutlet weak var questionDataLabel: UILabel!
     
     // hide status bar
@@ -53,9 +47,30 @@ class ViewController: UIViewController {
     
     func randomiseCorrectAnswers() {
         correctAnswers.removeAll()
-        for i in 1...totalQuestions {
+        for _ in 1...totalQuestions {
+            
+            // set correct answers randomly
             correctAnswers.append(Int(arc4random_uniform(2)))
+            
+            // initialise all user answers to choice A
+            userAnswers.append(0);
         }
+    }
+    
+    
+    func updateResults() {
+        var results = "";
+        for i in 1...totalQuestions{
+            
+            // generate a right or wrong string
+            let correctQ = String(userAnswers[i-1]==correctAnswers[i-1])
+            
+            // append the result of question i
+            results.append(String(i) + ": " + correctQ + "\n")
+        }
+        
+        // update the results text view
+        resultsView.text = results
     }
     
     
@@ -63,44 +78,55 @@ class ViewController: UIViewController {
         // update the label text at the top of the screen
         updateQuestionLabel()
         
-        AudioKit.stop()
+        // update results page to show how the user scored
+        updateResults()
         
-        let questionFolderURL = URL(fileURLWithPath: folderList[currentQuestion-1] as! String, relativeTo: audioFolderURL)
-        let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
-        let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
-        let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
+        // if at the end of the test,
+        // show the results
+        if(currentQuestion > totalQuestions){
+
         
-        questionDataLabel.text = questionFolderURL.relativeString
-        
-        do {
-            // load the reference audio file
-            let referenceAudioFile = try AKAudioFile(forReading: referenceAudioURL)
-            playerReference = try AKAudioPlayer(file: referenceAudioFile)
+        // otherwise load the audio
+        } else {
+            AudioKit.stop()
             
-            let audioFileA: AKAudioFile!
-            let audioFileB: AKAudioFile!
+            let questionFolderURL = URL(fileURLWithPath: folderList[currentQuestion-1] as! String, relativeTo: audioFolderURL)
+            let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
+            let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
+            let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
             
-            // switch the order of samples A and B according to the random
-            // selection determined at the start of the test
-            if (correctAnswers[currentQuestion-1] == 0) {
-                audioFileA = try AKAudioFile(forReading: whiteAudioURL)
-                audioFileB = try AKAudioFile(forReading: filteredAudioURL)
-            } else {
-                audioFileB = try AKAudioFile(forReading: whiteAudioURL)
-                audioFileA = try AKAudioFile(forReading: filteredAudioURL)
+            questionDataLabel.text = questionFolderURL.relativeString
+            
+            do {
+                // load the reference audio file
+                let referenceAudioFile = try AKAudioFile(forReading: referenceAudioURL)
+                playerReference = try AKAudioPlayer(file: referenceAudioFile)
+                
+                let audioFileA: AKAudioFile!
+                let audioFileB: AKAudioFile!
+                
+                // switch the order of samples A and B according to the random
+                // selection determined at the start of the test
+                if (correctAnswers[currentQuestion-1] == 0) {
+                    audioFileA = try AKAudioFile(forReading: whiteAudioURL)
+                    audioFileB = try AKAudioFile(forReading: filteredAudioURL)
+                } else {
+                    audioFileB = try AKAudioFile(forReading: whiteAudioURL)
+                    audioFileA = try AKAudioFile(forReading: filteredAudioURL)
+                }
+                
+                // load the A and B audio files
+                playerA = try AKAudioPlayer(file: audioFileA)
+                playerB = try AKAudioPlayer(file: audioFileB)
+                
+            } catch let error {
+                print("Error: \(error.localizedDescription)")
             }
             
-            // load the A and B audio files
-            playerA = try AKAudioPlayer(file: audioFileA)
-            playerB = try AKAudioPlayer(file: audioFileB)
-            
-        } catch let error {
-            print("Error: \(error.localizedDescription)")
+            mixer = AKMixer(playerA, playerB, playerReference)
+            AudioKit.output = mixer
+            AudioKit.start()
         }
-        
-        mixer = AKMixer(playerA, playerB, playerReference)
-        AudioKit.output = mixer
-        AudioKit.start()
     }
     
     
@@ -110,8 +136,8 @@ class ViewController: UIViewController {
     segmentedControl.setTitleTextAttributes([NSFontAttributeName: font],for: .normal)
         
         // set the colour for buttons in disabled state
-        backButton.setTitleColor(UIColor.darkGray, for: .disabled)
-        nextButton.setTitleColor(UIColor.darkGray, for: .disabled)
+        //backButton.setTitleColor(UIColor.darkGray, for: .disabled)
+        //nextButton.setTitleColor(UIColor.darkGray, for: .disabled)
     
         // hide the question data label
         questionDataLabel.alpha = 0.0;
@@ -193,24 +219,70 @@ class ViewController: UIViewController {
     func updateQuestionLabel(){
         questionNumberLabel.text = String(currentQuestion) + " / " + String(totalQuestions)
         
-        // disbale back at the beginning
-        backButton.isEnabled = (currentQuestion != 1)
+        // show results at the end
+        if(currentQuestion == totalQuestions + 1){
+            questionNumberLabel.text = "results";
+        }
         
-        // disable next at the end
-        nextButton.isEnabled = (currentQuestion != totalQuestions)
     }
     
-    @IBAction func nextButtonTouched(_ sender: Any) {
-        if(currentQuestion < totalQuestions) {
-            currentQuestion += 1
+    
+    
+    func recordAnswer() {
+        if (currentQuestion <= totalQuestions){
+            userAnswers[currentQuestion - 1] = segmentedControl.selectedSegmentIndex
         }
+    }
+    
+    
+    func loadAnswer() {
+        if (currentQuestion <= totalQuestions){
+            segmentedControl.selectedSegmentIndex = userAnswers[currentQuestion - 1];
+        }
+    }
+    
+    
+    @IBAction func nextButtonTouched(_ sender: Any) {
+        
+        // record the answer to the current question
+        recordAnswer()
+        
+        // increment the question number
+        currentQuestion += 1
+        
+        // wrap back to the beginning when we reach the end
+        if(currentQuestion > totalQuestions + 1){
+            currentQuestion = 1
+        }
+        
+        // load the user's answer for the new current question
+        loadAnswer()
+        
+        // show results when we reach the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        
         updateQuestion()
     }
 
     @IBAction func backButtonTouched(_ sender: Any) {
-        if(currentQuestion > 1) {
-            currentQuestion -= 1
+        
+        // record the answer to the current question
+        recordAnswer()
+        
+        // decrement the question number
+        currentQuestion -= 1
+        
+        // wrap to the end if we are at the beginning
+        if (currentQuestion < 1){
+            currentQuestion = totalQuestions + 1
         }
+        
+        // load the user's answer for the new current question
+        loadAnswer()
+        
+        // hide results when we are not yet at the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        
         updateQuestion()
     }
     
