@@ -22,8 +22,8 @@ class ViewController: UIViewController {
     var folderList: [String]!
     var totalQuestions = 0
     var currentQuestion = 1
-    var correctAnswers = [Int]()
-    var userAnswers = [Int]()
+    var correctAnswers = [answerChoice]()
+    var userAnswers = [answerChoice]()
     var orangeColour = UIColor(hue: 38.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     var blueColour = UIColor(hue: 196.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     
@@ -36,26 +36,70 @@ class ViewController: UIViewController {
     @IBOutlet weak var AButton: UIButton!
     @IBOutlet weak var questionDataLabel: UILabel!
     
+    enum answerChoice {
+        case A, B, unknown
+    }
+    
+    
+    
+    func segmentedControlIndex(ac: answerChoice) -> Int {
+        
+        switch ac {
+        case .A:
+            return 0
+        case .unknown:
+            return 1
+        case .B:
+            return 2
+        }
+    }
+    
+    
+    
+    func indexToAnswerChoice(idx: Int) -> answerChoice {
+        switch idx {
+        case 0:
+            return answerChoice.A
+        case 1:
+            return answerChoice.unknown
+        case 2:
+            return answerChoice.B
+        default:
+            return answerChoice.unknown
+        }
+    }
+    
+    
+    
     // hide status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
+    
+    
     func sortFunc(num1: String, num2: String) -> Bool {
         return num1 < num2
     }
+    
+    
     
     func randomiseCorrectAnswers() {
         correctAnswers.removeAll()
         for _ in 1...totalQuestions {
             
             // set correct answers randomly
-            correctAnswers.append(Int(arc4random_uniform(2)))
+            let randomAnswer = Int(arc4random_uniform(2));
+            correctAnswers.append(indexToAnswerChoice(idx: randomAnswer));
             
-            // initialise all user answers to choice A
-            userAnswers.append(0);
+            // initialise all user answers to choice 2
+            // 0=A, 1=B, 2=?
+            userAnswers.append(answerChoice.unknown);
         }
     }
+    
+    
+    
     
     
     func updateResults() {
@@ -63,7 +107,12 @@ class ViewController: UIViewController {
         for i in 1...totalQuestions{
             
             // generate a right or wrong string
-            let correctQ = String(userAnswers[i-1]==correctAnswers[i-1])
+            var correctQ = String(userAnswers[i-1]==correctAnswers[i-1])
+            
+            // don't show anyresult if the user didn't answer the question
+            if (userAnswers[i-1] == answerChoice.unknown){
+                correctQ = " ";
+            }
             
             // append the result of question i
             results.append(String(i) + ": " + correctQ + "\n")
@@ -74,9 +123,17 @@ class ViewController: UIViewController {
     }
     
     
+    
+    
+    
+    
     func updateQuestion(){
         // update the label text at the top of the screen
         updateQuestionLabel()
+        
+        // load the answer previously given by the user into the
+        // segmented control
+        loadAnswer()
         
         // update results page to show how the user scored
         updateResults()
@@ -90,7 +147,7 @@ class ViewController: UIViewController {
         } else {
             AudioKit.stop()
             
-            let questionFolderURL = URL(fileURLWithPath: folderList[currentQuestion-1] as! String, relativeTo: audioFolderURL)
+            let questionFolderURL = URL(fileURLWithPath: folderList[currentQuestion-1], relativeTo: audioFolderURL)
             let referenceAudioURL = URL(fileURLWithPath: "reference.wav", relativeTo: questionFolderURL)
             let whiteAudioURL = URL(fileURLWithPath: "white.wav", relativeTo: questionFolderURL)
             let filteredAudioURL = URL(fileURLWithPath: "filtered.wav", relativeTo: questionFolderURL)
@@ -107,7 +164,7 @@ class ViewController: UIViewController {
                 
                 // switch the order of samples A and B according to the random
                 // selection determined at the start of the test
-                if (correctAnswers[currentQuestion-1] == 0) {
+                if (correctAnswers[currentQuestion-1] == answerChoice.A) {
                     audioFileA = try AKAudioFile(forReading: whiteAudioURL)
                     audioFileB = try AKAudioFile(forReading: filteredAudioURL)
                 } else {
@@ -128,6 +185,10 @@ class ViewController: UIViewController {
             AudioKit.start()
         }
     }
+    
+    
+    
+    
     
     
     override func viewDidLoad() {
@@ -166,9 +227,13 @@ class ViewController: UIViewController {
         
         // start the test
         updateQuestion()
+
         
         super.viewDidLoad()
     }
+    
+    
+    
     
     
     
@@ -230,14 +295,14 @@ class ViewController: UIViewController {
     
     func recordAnswer() {
         if (currentQuestion <= totalQuestions){
-            userAnswers[currentQuestion - 1] = segmentedControl.selectedSegmentIndex
+            userAnswers[currentQuestion - 1] = indexToAnswerChoice(idx: segmentedControl.selectedSegmentIndex)
         }
     }
     
     
     func loadAnswer() {
         if (currentQuestion <= totalQuestions){
-            segmentedControl.selectedSegmentIndex = userAnswers[currentQuestion - 1];
+            segmentedControl.selectedSegmentIndex = segmentedControlIndex(ac: userAnswers[currentQuestion - 1]);
         }
     }
     
@@ -254,9 +319,6 @@ class ViewController: UIViewController {
         if(currentQuestion > totalQuestions + 1){
             currentQuestion = 1
         }
-        
-        // load the user's answer for the new current question
-        loadAnswer()
         
         // show results when we reach the end
         resultsView.isHidden = !(currentQuestion == totalQuestions+1)
@@ -277,9 +339,6 @@ class ViewController: UIViewController {
             currentQuestion = totalQuestions + 1
         }
         
-        // load the user's answer for the new current question
-        loadAnswer()
-        
         // hide results when we are not yet at the end
         resultsView.isHidden = !(currentQuestion == totalQuestions+1)
         
@@ -288,7 +347,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func showAnswer(_ sender: Any) {
-        if correctAnswers[currentQuestion-1] == 0 {
+        if correctAnswers[currentQuestion-1] == answerChoice.A {
             AButton.backgroundColor = orangeColour
         } else {
             BButton.backgroundColor = orangeColour
