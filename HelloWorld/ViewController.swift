@@ -165,11 +165,11 @@ class ViewController: UIViewController {
                 // switch the order of samples A and B according to the random
                 // selection determined at the start of the test
                 if (correctAnswers[currentQuestion-1] == answerChoice.A) {
-                    audioFileA = try AKAudioFile(forReading: whiteAudioURL)
-                    audioFileB = try AKAudioFile(forReading: filteredAudioURL)
-                } else {
                     audioFileB = try AKAudioFile(forReading: whiteAudioURL)
                     audioFileA = try AKAudioFile(forReading: filteredAudioURL)
+                } else {
+                    audioFileA = try AKAudioFile(forReading: whiteAudioURL)
+                    audioFileB = try AKAudioFile(forReading: filteredAudioURL)
                 }
                 
                 // load the A and B audio files
