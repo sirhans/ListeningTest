@@ -206,7 +206,7 @@ class ViewController: UIViewController {
         
         // get the list of subfolders in the audio folder
 //        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
-        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
+        audioFolderURL = URL(fileURLWithPath: "audio_Q_extensive", relativeTo: Bundle.main.bundleURL)
         
         do {
             folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as [String]

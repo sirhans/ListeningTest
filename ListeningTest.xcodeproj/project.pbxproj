@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2C5BF6311F659E9100894584 /* audio_Q_extensive in Resources */ = {isa = PBXBuildFile; fileRef = 2C5BF62F1F659E9100894584 /* audio_Q_extensive */; };
-		2C5BF6321F659E9100894584 /* audio_W_extensive in Resources */ = {isa = PBXBuildFile; fileRef = 2C5BF6301F659E9100894584 /* audio_W_extensive */; };
 		3A2CD8E31F2587A000F40B42 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2CD8E11F25873200F40B42 /* AudioKit.framework */; };
 		3A2CD8E41F2587A000F40B42 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2CD8E11F25873200F40B42 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C41702841C11954900AB689C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41702831C11954900AB689C /* AppDelegate.swift */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		2C5BF62F1F659E9100894584 /* audio_Q_extensive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio_Q_extensive; sourceTree = "<group>"; };
-		2C5BF6301F659E9100894584 /* audio_W_extensive */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio_W_extensive; sourceTree = "<group>"; };
 		3A2CD8E11F25873200F40B42 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = ../AudioKit.framework; sourceTree = "<group>"; };
 		C41702801C11954900AB689C /* ListeningTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListeningTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C41702831C11954900AB689C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				2C5BF62F1F659E9100894584 /* audio_Q_extensive */,
-				2C5BF6301F659E9100894584 /* audio_W_extensive */,
 				C41702831C11954900AB689C /* AppDelegate.swift */,
 				C41702851C11954900AB689C /* ViewController.swift */,
 				C41702871C11954900AB689C /* Main.storyboard */,
@@ -163,7 +160,6 @@
 				2C5BF6311F659E9100894584 /* audio_Q_extensive in Resources */,
 				C417028E1C11954900AB689C /* LaunchScreen.storyboard in Resources */,
 				C417028B1C11954900AB689C /* Assets.xcassets in Resources */,
-				2C5BF6321F659E9100894584 /* audio_W_extensive in Resources */,
 				C41702891C11954900AB689C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
