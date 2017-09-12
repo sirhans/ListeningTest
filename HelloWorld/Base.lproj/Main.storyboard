@@ -25,9 +25,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-2q-RCn">
-                                        <rect key="frame" x="70" y="12.666666666666664" width="62" height="36"/>
+                                        <rect key="frame" x="130" y="12.666666666666664" width="30" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="&lt; back">
+                                        <state key="normal" title="&lt;">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -35,9 +35,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJG-r6-HxB">
-                                        <rect key="frame" x="287" y="13.333333333333336" width="57" height="36"/>
+                                        <rect key="frame" x="254" y="13.333333333333336" width="30" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="next &gt;">
+                                        <state key="normal" title="&gt;">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -51,7 +51,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTT-1x-63z">
-                                        <rect key="frame" x="6" y="12.333333333333336" width="30" height="36"/>
+                                        <rect key="frame" x="70" y="12.333333333333336" width="30" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="&lt;&lt;">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -61,7 +61,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsR-VR-IWc">
-                                        <rect key="frame" x="378" y="12" width="30" height="36"/>
+                                        <rect key="frame" x="314" y="12" width="30" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="&gt;&gt;">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -70,20 +70,44 @@
                                             <action selector="fastNextTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="IHd-Qk-bDe"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkh-rT-yry">
+                                        <rect key="frame" x="6" y="12" width="38" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&lt;&lt;&lt;">
+                                            <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doubleFastBackTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="H9H-CN-qkx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="daw-tL-8mG">
+                                        <rect key="frame" x="370" y="12" width="38" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&gt;&gt;&gt;">
+                                            <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doubleFastNextTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="aa8-fy-1RD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.31605429348415798" green="0.34181964447784902" blue="0.35158854166666664" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="daw-tL-8mG" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="2jC-j3-wV2"/>
                                     <constraint firstItem="tTT-1x-63z" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="9mR-h5-lSS"/>
+                                    <constraint firstAttribute="trailing" secondItem="daw-tL-8mG" secondAttribute="trailing" constant="6" id="AjA-Wh-BE6"/>
                                     <constraint firstItem="mKK-3F-mkP" firstAttribute="centerX" secondItem="5vz-3Q-LGA" secondAttribute="centerX" id="Bkd-rT-Rzh"/>
-                                    <constraint firstItem="tTT-1x-63z" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="6" id="DaT-kK-8mG"/>
+                                    <constraint firstItem="tTT-1x-63z" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="70" id="DaT-kK-8mG"/>
                                     <constraint firstItem="xPu-2q-RCn" firstAttribute="baseline" secondItem="hJG-r6-HxB" secondAttribute="baseline" id="Fpz-AR-477"/>
-                                    <constraint firstAttribute="trailing" secondItem="hJG-r6-HxB" secondAttribute="trailing" constant="70" id="JE0-qh-6Mi"/>
+                                    <constraint firstAttribute="trailing" secondItem="hJG-r6-HxB" secondAttribute="trailing" constant="130" id="JE0-qh-6Mi"/>
+                                    <constraint firstItem="zkh-rT-yry" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="Vy4-7b-Esc"/>
                                     <constraint firstItem="mKK-3F-mkP" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="X4D-yX-HO3"/>
                                     <constraint firstItem="YsR-VR-IWc" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="fjC-MD-o0R"/>
                                     <constraint firstItem="xPu-2q-RCn" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="gAe-Tw-5cK"/>
-                                    <constraint firstAttribute="trailing" secondItem="YsR-VR-IWc" secondAttribute="trailing" constant="6" id="gXr-NN-MBj"/>
+                                    <constraint firstAttribute="trailing" secondItem="YsR-VR-IWc" secondAttribute="trailing" constant="70" id="gXr-NN-MBj"/>
                                     <constraint firstAttribute="height" constant="60" id="jLQ-wn-Zjj"/>
-                                    <constraint firstItem="xPu-2q-RCn" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="70" id="jzu-Sy-gXy"/>
+                                    <constraint firstItem="xPu-2q-RCn" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="130" id="jzu-Sy-gXy"/>
+                                    <constraint firstItem="zkh-rT-yry" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="6" id="whG-cI-ohr"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-1O-Otp" userLabel="Buttons">

@@ -346,7 +346,7 @@ class ViewController: UIViewController {
         recordAnswer()
         
         // increment the question number
-        currentQuestion += 15
+        currentQuestion += 10
         
         // wrap back to the beginning when we reach the end
         if(currentQuestion > totalQuestions + 1){
@@ -362,6 +362,24 @@ class ViewController: UIViewController {
     
     
     
+    @IBAction func doubleFastNextTouched(_ sender: Any) {
+        // record the answer to the current question
+        recordAnswer()
+        
+        // increment the question number
+        currentQuestion += 50
+        
+        // wrap back to the beginning when we reach the end
+        if(currentQuestion > totalQuestions + 1){
+            currentQuestion = 1
+        }
+        
+        // show results when we reach the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
+        
+        updateQuestion()
+    }
     
 
     @IBAction func backButtonTouched(_ sender: Any) {
@@ -392,7 +410,7 @@ class ViewController: UIViewController {
         recordAnswer()
         
         // decrement the question number
-        currentQuestion -= 15
+        currentQuestion -= 10
         
         // wrap to the end if we are at the beginning
         if (currentQuestion < 1){
@@ -407,6 +425,24 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func doubleFastBackTouched(_ sender: Any) {
+        // record the answer to the current question
+        recordAnswer()
+        
+        // decrement the question number
+        currentQuestion -= 50
+        
+        // wrap to the end if we are at the beginning
+        if (currentQuestion < 1){
+            currentQuestion = totalQuestions + 1
+        }
+        
+        // hide results when we are not yet at the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
+        
+        updateQuestion()
+    }
     
     
     @IBAction func showAnswer(_ sender: Any) {
