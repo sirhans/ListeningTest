@@ -171,11 +171,11 @@ class ViewController: UIViewController {
                 // switch the order of samples A and B according to the random
                 // selection determined at the start of the test
                 if (correctAnswers[currentQuestion-1] == answerChoice.A) {
-                    audioFileA = try AKAudioFile(forReading: whiteAudioURL)
-                    audioFileB = try AKAudioFile(forReading: filteredAudioURL)
-                } else {
                     audioFileB = try AKAudioFile(forReading: whiteAudioURL)
                     audioFileA = try AKAudioFile(forReading: filteredAudioURL)
+                } else {
+                    audioFileA = try AKAudioFile(forReading: whiteAudioURL)
+                    audioFileB = try AKAudioFile(forReading: filteredAudioURL)
                 }
                 
                 // load the A and B audio files
@@ -212,7 +212,7 @@ class ViewController: UIViewController {
         
         // get the list of subfolders in the audio folder
 //        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
-        audioFolderURL = URL(fileURLWithPath: "audio_w", relativeTo: Bundle.main.bundleURL)
+        audioFolderURL = URL(fileURLWithPath: "audio_Q_extensive", relativeTo: Bundle.main.bundleURL)
         
         do {
             folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as [String]
