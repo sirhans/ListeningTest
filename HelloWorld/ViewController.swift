@@ -24,20 +24,18 @@ class ViewController: UIViewController {
     var currentQuestion = 1
     var correctAnswers = [answerChoice]()
     var userAnswers = [answerChoice]()
+    var activeQuestions = [Bool]()
     var orangeColour = UIColor(hue: 38.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     var blueColour = UIColor(hue: 196.0/360.0, saturation: 1.0, brightness: 1.0, alpha: 1.0)
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var resultsView: UITextView!
     @IBOutlet weak var questionNumberLabel: UILabel!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var BButton: UIButton!
     @IBOutlet weak var AButton: UIButton!
     @IBOutlet weak var questionDataLabel: UILabel!
     @IBOutlet weak var copyButton: UIButton!
-    @IBOutlet weak var fastBackButton: UIButton!
-    @IBOutlet weak var fastNextButton: UIButton!
+
     
     
     enum answerChoice {
@@ -98,6 +96,8 @@ class ViewController: UIViewController {
             
             // initialise all user answers to unknown
             userAnswers.append(answerChoice.unknown);
+            
+            activeQuestions.append(true);
         }
     }
     
@@ -309,19 +309,26 @@ class ViewController: UIViewController {
     
     
     func loadAnswer() {
+        // load the answer unless we are on the results page
         if (currentQuestion <= totalQuestions){
-            segmentedControl.selectedSegmentIndex = segmentedControlIndex(ac: userAnswers[currentQuestion - 1]);
+            // load the answer to the segmented control
+            segmentedControl.selectedSegmentIndex = segmentedControlIndex(ac: userAnswers[currentQuestion - 1])
+            
+            // don't allow the user to change the
+            // answer for questions after viewing
+            // the correct answer
+            segmentedControl.isEnabled = activeQuestions[currentQuestion - 1]
         }
     }
     
     
-    @IBAction func nextButtonTouched(_ sender: Any) {
+    func advanceQuestion(amount: Int){
         
         // record the answer to the current question
         recordAnswer()
         
         // increment the question number
-        currentQuestion += 1
+        currentQuestion += amount
         
         // wrap back to the beginning when we reach the end
         if(currentQuestion > totalQuestions + 1){
@@ -336,45 +343,41 @@ class ViewController: UIViewController {
     }
     
     
+
     
+    @IBAction func nextButtonTouched(_ sender: Any) {
+        advanceQuestion(amount:1);
+    }
     
     
     
     @IBAction func fastNextTouched(_ sender: Any) {
-        
-        // record the answer to the current question
-        recordAnswer()
-        
-        // increment the question number
-        currentQuestion += 10
-        
-        // wrap back to the beginning when we reach the end
-        if(currentQuestion > totalQuestions + 1){
-            currentQuestion = 1
-        }
-        
-        // show results when we reach the end
-        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
-        copyButton.isHidden = resultsView.isHidden
-        
-        updateQuestion()
+         advanceQuestion(amount:10);
     }
     
     
     
     @IBAction func doubleFastNextTouched(_ sender: Any) {
+         advanceQuestion(amount:100);
+    }
+    
+    
+    
+    
+    func toPreviousQuestion(amount: Int){
+        
         // record the answer to the current question
         recordAnswer()
         
-        // increment the question number
-        currentQuestion += 50
+        // decrement the question number
+        currentQuestion -= amount
         
-        // wrap back to the beginning when we reach the end
-        if(currentQuestion > totalQuestions + 1){
-            currentQuestion = 1
+        // wrap to the end if we are at the beginning
+        if (currentQuestion < 1){
+            currentQuestion = totalQuestions + 1
         }
         
-        // show results when we reach the end
+        // hide results when we are not yet at the end
         resultsView.isHidden = !(currentQuestion == totalQuestions+1)
         copyButton.isHidden = resultsView.isHidden
         
@@ -382,66 +385,21 @@ class ViewController: UIViewController {
     }
     
 
+    
+    
     @IBAction func backButtonTouched(_ sender: Any) {
-        
-        // record the answer to the current question
-        recordAnswer()
-        
-        // decrement the question number
-        currentQuestion -= 1
-        
-        // wrap to the end if we are at the beginning
-        if (currentQuestion < 1){
-            currentQuestion = totalQuestions + 1
-        }
-        
-        // hide results when we are not yet at the end
-        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
-        copyButton.isHidden = resultsView.isHidden
-        
-        updateQuestion()
+        toPreviousQuestion(amount:1)
     }
     
     
     
     @IBAction func fastBackTouched(_ sender: Any) {
-        
-        // record the answer to the current question
-        recordAnswer()
-        
-        // decrement the question number
-        currentQuestion -= 10
-        
-        // wrap to the end if we are at the beginning
-        if (currentQuestion < 1){
-            currentQuestion = totalQuestions + 1
-        }
-        
-        // hide results when we are not yet at the end
-        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
-        copyButton.isHidden = resultsView.isHidden
-        
-        updateQuestion()
+        toPreviousQuestion(amount:10)
     }
     
     
     @IBAction func doubleFastBackTouched(_ sender: Any) {
-        // record the answer to the current question
-        recordAnswer()
-        
-        // decrement the question number
-        currentQuestion -= 50
-        
-        // wrap to the end if we are at the beginning
-        if (currentQuestion < 1){
-            currentQuestion = totalQuestions + 1
-        }
-        
-        // hide results when we are not yet at the end
-        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
-        copyButton.isHidden = resultsView.isHidden
-        
-        updateQuestion()
+        toPreviousQuestion(amount:100)
     }
     
     
@@ -453,6 +411,14 @@ class ViewController: UIViewController {
         }
         
         questionDataLabel.alpha = 1.0
+        
+        // set the current question inactive 
+        // now that the user has seen the answer
+        activeQuestions[currentQuestion-1] = false;
+        
+        // disable the control so that the user
+        // can not change the answer
+        segmentedControl.isEnabled = false;
     }
     
     
