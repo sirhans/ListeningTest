@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPu-2q-RCn">
-                                        <rect key="frame" x="6" y="12.666666666666664" width="62" height="36"/>
+                                        <rect key="frame" x="70" y="12.666666666666664" width="62" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="&lt; back">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,7 +35,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJG-r6-HxB">
-                                        <rect key="frame" x="348" y="13.333333333333336" width="57" height="36"/>
+                                        <rect key="frame" x="287" y="13.333333333333336" width="57" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="next &gt;">
                                             <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -50,16 +50,40 @@
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTT-1x-63z">
+                                        <rect key="frame" x="6" y="12.333333333333336" width="30" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&lt;&lt;">
+                                            <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="fastBackTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="IHj-LO-Pig"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsR-VR-IWc">
+                                        <rect key="frame" x="378" y="12" width="30" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&gt;&gt;">
+                                            <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="fastNextTouched:" destination="BYZ-38-t0r" eventType="touchDown" id="IHd-Qk-bDe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.31605429348415798" green="0.34181964447784902" blue="0.35158854166666664" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="tTT-1x-63z" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="9mR-h5-lSS"/>
                                     <constraint firstItem="mKK-3F-mkP" firstAttribute="centerX" secondItem="5vz-3Q-LGA" secondAttribute="centerX" id="Bkd-rT-Rzh"/>
+                                    <constraint firstItem="tTT-1x-63z" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="6" id="DaT-kK-8mG"/>
                                     <constraint firstItem="xPu-2q-RCn" firstAttribute="baseline" secondItem="hJG-r6-HxB" secondAttribute="baseline" id="Fpz-AR-477"/>
-                                    <constraint firstAttribute="trailing" secondItem="hJG-r6-HxB" secondAttribute="trailing" constant="9" id="JE0-qh-6Mi"/>
+                                    <constraint firstAttribute="trailing" secondItem="hJG-r6-HxB" secondAttribute="trailing" constant="70" id="JE0-qh-6Mi"/>
                                     <constraint firstItem="mKK-3F-mkP" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="X4D-yX-HO3"/>
+                                    <constraint firstItem="YsR-VR-IWc" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="fjC-MD-o0R"/>
                                     <constraint firstItem="xPu-2q-RCn" firstAttribute="centerY" secondItem="5vz-3Q-LGA" secondAttribute="centerY" id="gAe-Tw-5cK"/>
+                                    <constraint firstAttribute="trailing" secondItem="YsR-VR-IWc" secondAttribute="trailing" constant="6" id="gXr-NN-MBj"/>
                                     <constraint firstAttribute="height" constant="60" id="jLQ-wn-Zjj"/>
-                                    <constraint firstItem="xPu-2q-RCn" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="6" id="jzu-Sy-gXy"/>
+                                    <constraint firstItem="xPu-2q-RCn" firstAttribute="leading" secondItem="5vz-3Q-LGA" secondAttribute="leading" constant="70" id="jzu-Sy-gXy"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBc-1O-Otp" userLabel="Buttons">
@@ -223,7 +247,9 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5f-PK-qdx">
                                 <rect key="frame" x="290" y="686" width="84" height="30"/>
-                                <state key="normal" title="copy results"/>
+                                <state key="normal" title="copy results">
+                                    <color key="titleColor" red="0.0" green="0.72508501830000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="copyResults:" destination="BYZ-38-t0r" eventType="touchDown" id="dJ0-bG-cD9"/>
                                 </connections>
@@ -259,6 +285,8 @@
                         <outlet property="BButton" destination="JHL-Og-rNv" id="1Fv-at-UZd"/>
                         <outlet property="backButton" destination="xPu-2q-RCn" id="pzx-4o-1Gd"/>
                         <outlet property="copyButton" destination="P5f-PK-qdx" id="4kR-xd-0af"/>
+                        <outlet property="fastBackButton" destination="tTT-1x-63z" id="Vws-DX-Sx6"/>
+                        <outlet property="fastNextButton" destination="YsR-VR-IWc" id="ujV-YL-7zU"/>
                         <outlet property="nextButton" destination="hJG-r6-HxB" id="Plv-Fk-cHb"/>
                         <outlet property="questionDataLabel" destination="rgZ-8b-FpY" id="Rk1-Gi-hO2"/>
                         <outlet property="questionNumberLabel" destination="mKK-3F-mkP" id="fGl-dr-OJd"/>

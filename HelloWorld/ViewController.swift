@@ -36,6 +36,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var AButton: UIButton!
     @IBOutlet weak var questionDataLabel: UILabel!
     @IBOutlet weak var copyButton: UIButton!
+    @IBOutlet weak var fastBackButton: UIButton!
+    @IBOutlet weak var fastNextButton: UIButton!
+    
     
     enum answerChoice {
         case A, B, unknown
@@ -331,6 +334,35 @@ class ViewController: UIViewController {
         
         updateQuestion()
     }
+    
+    
+    
+    
+    
+    
+    @IBAction func fastNextTouched(_ sender: Any) {
+        
+        // record the answer to the current question
+        recordAnswer()
+        
+        // increment the question number
+        currentQuestion += 15
+        
+        // wrap back to the beginning when we reach the end
+        if(currentQuestion > totalQuestions + 1){
+            currentQuestion = 1
+        }
+        
+        // show results when we reach the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
+        
+        updateQuestion()
+    }
+    
+    
+    
+    
 
     @IBAction func backButtonTouched(_ sender: Any) {
         
@@ -351,6 +383,30 @@ class ViewController: UIViewController {
         
         updateQuestion()
     }
+    
+    
+    
+    @IBAction func fastBackTouched(_ sender: Any) {
+        
+        // record the answer to the current question
+        recordAnswer()
+        
+        // decrement the question number
+        currentQuestion -= 15
+        
+        // wrap to the end if we are at the beginning
+        if (currentQuestion < 1){
+            currentQuestion = totalQuestions + 1
+        }
+        
+        // hide results when we are not yet at the end
+        resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
+        
+        updateQuestion()
+    }
+    
+    
     
     
     @IBAction func showAnswer(_ sender: Any) {
