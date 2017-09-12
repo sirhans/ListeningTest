@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  ListeningTest
 //
-//  Created by Aurelius Prochazka on 12/4/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by hans anderson on 12/4/15.
+//  Anyone may use this file without restrictions
 //
 
 import AudioKit
@@ -90,11 +90,10 @@ class ViewController: UIViewController {
         for _ in 1...totalQuestions {
             
             // set correct answers randomly
-            let randomAnswer = Int(arc4random_uniform(2));
+            let randomAnswer = 2*Int(arc4random_uniform(2));
             correctAnswers.append(indexToAnswerChoice(idx: randomAnswer));
             
-            // initialise all user answers to choice 2
-            // 0=A, 1=B, 2=?
+            // initialise all user answers to unknown
             userAnswers.append(answerChoice.unknown);
         }
     }
@@ -212,7 +211,7 @@ class ViewController: UIViewController {
         
         // get the list of subfolders in the audio folder
 //        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
-        audioFolderURL = URL(fileURLWithPath: "audio_Q_extensive", relativeTo: Bundle.main.bundleURL)
+        audioFolderURL = URL(fileURLWithPath: "audio", relativeTo: Bundle.main.bundleURL)
         
         do {
             folderList = try FileManager.default.contentsOfDirectory(atPath: audioFolderURL.path) as [String]
