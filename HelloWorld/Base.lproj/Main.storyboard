@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -216,11 +216,18 @@
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kcg-bC-rnt">
                                 <rect key="frame" x="0.0" y="60" width="414" height="676"/>
                                 <color key="backgroundColor" red="0.2666666667" green="0.2901960784" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P5f-PK-qdx">
+                                <rect key="frame" x="290" y="686" width="84" height="30"/>
+                                <state key="normal" title="copy results"/>
+                                <connections>
+                                    <action selector="copyResults:" destination="BYZ-38-t0r" eventType="touchDown" id="dJ0-bG-cD9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.26666666666666666" green="0.29019607843137252" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -229,6 +236,7 @@
                             <constraint firstItem="zca-hJ-UvZ" firstAttribute="top" secondItem="mBc-1O-Otp" secondAttribute="bottom" id="4cX-Xx-eIQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zca-hJ-UvZ" secondAttribute="trailing" id="8uq-Oj-Nvd"/>
                             <constraint firstItem="Z1a-AJ-UJc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="BSw-xh-MqI"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="P5f-PK-qdx" secondAttribute="bottom" constant="20" id="CN8-Yt-E8T"/>
                             <constraint firstItem="zca-hJ-UvZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="FY6-gg-AKO"/>
                             <constraint firstItem="mBc-1O-Otp" firstAttribute="top" secondItem="Z1a-AJ-UJc" secondAttribute="bottom" id="HKi-Rf-2ne"/>
                             <constraint firstItem="kcg-bC-rnt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IWd-tC-EMB"/>
@@ -242,6 +250,7 @@
                             <constraint firstItem="mBc-1O-Otp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="mTi-8C-V3r"/>
                             <constraint firstItem="Z1a-AJ-UJc" firstAttribute="top" secondItem="5vz-3Q-LGA" secondAttribute="bottom" id="naD-Xb-OD3"/>
                             <constraint firstItem="kcg-bC-rnt" firstAttribute="top" secondItem="5vz-3Q-LGA" secondAttribute="bottom" id="oGa-bH-Vwc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="P5f-PK-qdx" secondAttribute="trailing" constant="20" id="pWs-Ta-KE4"/>
                             <constraint firstAttribute="trailing" secondItem="kcg-bC-rnt" secondAttribute="trailing" id="vVo-fS-SFZ"/>
                         </constraints>
                     </view>
@@ -249,6 +258,7 @@
                         <outlet property="AButton" destination="svp-g7-Off" id="sg4-Lq-Xus"/>
                         <outlet property="BButton" destination="JHL-Og-rNv" id="1Fv-at-UZd"/>
                         <outlet property="backButton" destination="xPu-2q-RCn" id="pzx-4o-1Gd"/>
+                        <outlet property="copyButton" destination="P5f-PK-qdx" id="4kR-xd-0af"/>
                         <outlet property="nextButton" destination="hJG-r6-HxB" id="Plv-Fk-cHb"/>
                         <outlet property="questionDataLabel" destination="rgZ-8b-FpY" id="Rk1-Gi-hO2"/>
                         <outlet property="questionNumberLabel" destination="mKK-3F-mkP" id="fGl-dr-OJd"/>

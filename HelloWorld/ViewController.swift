@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var BButton: UIButton!
     @IBOutlet weak var AButton: UIButton!
     @IBOutlet weak var questionDataLabel: UILabel!
+    @IBOutlet weak var copyButton: UIButton!
     
     enum answerChoice {
         case A, B, unknown
@@ -102,7 +103,7 @@ class ViewController: UIViewController {
     
     
     
-    func updateResults() {
+    func updateResults(copy: Bool = false) {
         var results = "";
         for i in 1...totalQuestions{
             
@@ -120,6 +121,11 @@ class ViewController: UIViewController {
         
         // update the results text view
         resultsView.text = results
+        
+        // copy to pasteboard
+        if(copy){
+            UIPasteboard.general.setValue(results, forPasteboardType: "public.plain-text");
+        }
     }
     
     
@@ -322,6 +328,7 @@ class ViewController: UIViewController {
         
         // show results when we reach the end
         resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
         
         updateQuestion()
     }
@@ -341,6 +348,7 @@ class ViewController: UIViewController {
         
         // hide results when we are not yet at the end
         resultsView.isHidden = !(currentQuestion == totalQuestions+1)
+        copyButton.isHidden = resultsView.isHidden
         
         updateQuestion()
     }
@@ -364,6 +372,9 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func copyResults(_ sender: Any) {
+        updateResults(copy: true);
+    }
     
     
 }
